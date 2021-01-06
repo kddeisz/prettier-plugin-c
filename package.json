@@ -1,0 +1,32 @@
+{
+  "name": "prettier-plugin-c",
+  "version": "0.1.0",
+  "description": "prettier plugin for C",
+  "main": "src/plugin.js",
+  "scripts": {
+    "print": "prettier --plugin=.",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kddeisz/prettier-plugin-c.git"
+  },
+  "author": "Kevin Deisz",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kddeisz/prettier-plugin-c/issues"
+  },
+  "homepage": "https://github.com/kddeisz/prettier-plugin-c#readme",
+  "dependencies": {
+    "prettier": ">=2.0"
+  },
+  "devDependencies": {
+    "jest": "^26.0.0"
+  },
+  "jest": {
+    "testRegex": ".test.js$"
+  },
+  "prettier": {
+    "trailingComma": "none"
+  }
+}
