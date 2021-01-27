@@ -1,6 +1,5 @@
 function parse(text, _parsers, _opts) {
-  
-};
+}  
 
 function locStart() {
   return 0;
