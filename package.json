@@ -4,6 +4,7 @@
   "description": "prettier plugin for C",
   "main": "src/plugin.js",
   "scripts": {
+    "parser": "jison src/parser/parser.jison src/parser/parser.jisonlex -o src/parser/parser.js",
     "print": "prettier --plugin=.",
     "test": "jest"
   },
@@ -18,11 +19,11 @@
   },
   "homepage": "https://github.com/kddeisz/prettier-plugin-c#readme",
   "dependencies": {
-    "chevrotain": "^7.1.0",
     "prettier": ">=2.0"
   },
   "devDependencies": {
-    "jest": "^26.0.0"
+    "jest": "^26.0.0",
+    "jison": "^0.4.18"
   },
   "jest": {
     "testRegex": ".test.js$"
