@@ -504,7 +504,8 @@ jump_statement
 	;
 
 translation_unit
-	: external_declaration { console.log($1) }
+	: external_declaration
+		{ return { type: 'translationUnit', value: [$1] } }
 	| translation_unit external_declaration
 	;
 

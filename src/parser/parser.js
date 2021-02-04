@@ -84,7 +84,7 @@ performAction: function anonymous(yytext, yyleng, yylineno, yy, yystate /* actio
 var $0 = $$.length - 1;
 switch (yystate) {
 case 267:
- console.log($$[$0]) 
+ return { type: 'translationUnit', value: [$$[$0]] } 
 break;
 }
 },
