@@ -1,5 +1,6 @@
-function parse(text, _parsers, _opts) {
-}  
+#!/usr/bin/env node
+
+const { parse } = require("./parser/parser");
 
 function locStart() {
   return 0;

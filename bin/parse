@@ -1,5 +1,16 @@
 #!/usr/bin/env node
 
-const { parse } = require("../src/parser/parser");
+const fs = require("fs");
+const parser = require("../src/parser/parser");
 
-console.log(parse(process.argv.slice(2).join(" ").replace(/\\n/g, "\n")));
+let code;
+
+if (!process.argv[2]) {
+  code = fs.readFileSync("test.c", "utf-8");
+} else if (fs.existsSync(process.argv[2])) {
+  code = fs.readFileSync(process.argv[2], "utf-8");
+} else {
+  code = process.argv.slice(2).join(" ").replace(/\\n/g, "\n");
+}
+
+console.log(JSON.stringify(parser.parse(code), null, 2));

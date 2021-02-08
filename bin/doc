@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const fs = require("fs");
-const prettier = require("prettier");
+const { __debug } = require("prettier");
 
 let code;
 
@@ -13,4 +13,5 @@ if (!process.argv[2]) {
   code = process.argv.slice(2).join(" ").replace(/\\n/g, "\n");
 }
 
-console.log(prettier.format(code, { parser: "c", plugins: ["."] }));
+const doc = __debug.printToDoc(code, { parser: "c", plugins: ["."] });
+console.log(__debug.formatDoc(doc));

@@ -29,6 +29,7 @@
     "testRegex": ".test.js$"
   },
   "prettier": {
+    "plugins": ["."],
     "trailingComma": "none"
   }
 }
