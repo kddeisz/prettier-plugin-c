@@ -45,3 +45,5 @@ int a = 1 ? 2 : 3;
 int a, b = 1;
 
 int a = 1, b = 2;
+
+while(a++ < 1) b++;

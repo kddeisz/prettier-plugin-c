@@ -92,6 +92,18 @@ break;
 case 6: case 7:
  this.$ = node({ type: "const", value: $$[$0] }, _$[$0]) 
 break;
+case 19:
+ this.$ = node({ type: "call", recv: $$[$0-2] }, _$[$0-2], _$[$0]) 
+break;
+case 20:
+ this.$ = node({ type: "call", recv: $$[$0-3], args: $$[$0-1] }, _$[$0-3], _$[$0]) 
+break;
+case 21: case 22:
+ this.$ = node({ type: "field", recv: $$[$0-2], oper: $$[$0-1], ident: $$[$0] }, _$[$0-2], _$[$0]) 
+break;
+case 23: case 24:
+ this.$ = node({ type: "postUnary", expr: $$[$0-1], oper: $$[$0] }, _$[$0-1], _$[$0]) 
+break;
 case 27: case 103: case 189: case 230: case 246: case 272:
  this.$ = [$$[$0]] 
 break;
@@ -117,7 +129,7 @@ case 73:
  this.$ = node({ type: "ternary", pred: $$[$0-4], truthy: $$[$0-2], falsy: $$[$0] }, _$[$0-4], _$[$0]) 
 break;
 case 75:
- this.$ = node({ type: "assignment", lhs: $$[$0-2], oper: $$[$0-1], rhs: $$[$0] }, _$[$0-2], _$[$0]) 
+ this.$ = node({ type: "assign", lhs: $$[$0-2], oper: $$[$0-1], rhs: $$[$0] }, _$[$0-2], _$[$0]) 
 break;
 case 87:
  this.$ = node({ type: "exprs", exprs: [$$[$0]] }, _$[$0]) 

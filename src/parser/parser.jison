@@ -62,11 +62,17 @@ postfix_expression
 	: primary_expression
 	| postfix_expression '[' expression ']'
 	| postfix_expression '(' ')'
+		{ $$ = node({ type: "call", recv: $1 }, @1, @3) }
 	| postfix_expression '(' argument_expression_list ')'
+		{ $$ = node({ type: "call", recv: $1, args: $3 }, @1, @4) }
 	| postfix_expression '.' IDENTIFIER
+		{ $$ = node({ type: "field", recv: $1, oper: $2, ident: $3 }, @1, @3) }
 	| postfix_expression PTR_OP IDENTIFIER
+		{ $$ = node({ type: "field", recv: $1, oper: $2, ident: $3 }, @1, @3) }
 	| postfix_expression INC_OP
+		{ $$ = node({ type: "postUnary", expr: $1, oper: $2 }, @1, @2) }
 	| postfix_expression DEC_OP
+		{ $$ = node({ type: "postUnary", expr: $1, oper: $2 }, @1, @2) }
 	| '(' type_name ')' '{' initializer_list '}'
 	| '(' type_name ')' '{' initializer_list ',' '}'
 	;
@@ -194,7 +200,7 @@ conditional_expression
 assignment_expression
 	: conditional_expression
 	| unary_expression assignment_operator assignment_expression
-		{ $$ = node({ type: "assignment", lhs: $1, oper: $2, rhs: $3 }, @1, @3) }
+		{ $$ = node({ type: "assign", lhs: $1, oper: $2, rhs: $3 }, @1, @3) }
 	;
 
 assignment_operator
