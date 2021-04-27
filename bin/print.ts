@@ -1,9 +1,10 @@
-#!/usr/bin/env node
+#!./node_modules/.bin/ts-node
 
-const fs = require("fs");
-const parser = require("../src/parser/parser");
+import fs from "fs";
+import prettier from "prettier";
+import plugin from "../src/plugin";
 
-let code;
+let code: string;
 
 if (!process.argv[2]) {
   code = fs.readFileSync("test.c", "utf-8");
@@ -13,4 +14,4 @@ if (!process.argv[2]) {
   code = process.argv.slice(2).join(" ").replace(/\\n/g, "\n");
 }
 
-console.log(JSON.stringify(parser.parse(code), null, 2));
+console.log(prettier.format(code, { parser: "c", plugins: [plugin] }));

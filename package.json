@@ -5,7 +5,8 @@
   "main": "src/plugin.js",
   "scripts": {
     "parser": "jison src/parser/parser.jison src/parser/parser.jisonlex -o src/parser/parser.js",
-    "print": "prettier --plugin=.",
+    "prepublishOnly": "rm -f dist/* && yarn tsc --declaration",
+    "print": "ts-node node_modules/.bin/prettier --plugin=.",
     "test": "jest"
   },
   "repository": {
@@ -22,14 +23,23 @@
     "prettier": ">=2.0"
   },
   "devDependencies": {
+    "@types/jest": "^26.0.23",
+    "@types/node": "^15.0.1",
+    "@types/prettier": "^2.2.3",
     "jest": "^26.0.0",
-    "jison": "^0.4.18"
+    "jison": "^0.4.18",
+    "ts-jest": "^26.5.5",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.2.4"
   },
   "jest": {
-    "testRegex": ".test.js$"
+    "preset": "ts-jest",
+    "testRegex": ".test.ts$"
   },
   "prettier": {
-    "plugins": ["."],
+    "plugins": [
+      "."
+    ],
     "trailingComma": "none"
   }
 }

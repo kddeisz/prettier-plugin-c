@@ -1,11 +1,12 @@
-const fs = require("fs");
-const prettier = require("prettier");
+import fs from "fs";
+import prettier from "prettier";
 
-const lines = fs.readFileSync("./test/cases.c", "utf-8").split("\n");
-const cases = [];
+import plugin from "../src/plugin";
 
-let current = [];
-lines.forEach((line) => {
+const cases: string[] = [];
+let current: string[] = [];
+
+fs.readFileSync("./test/cases.c", "utf-8").split("\n").forEach((line) => {
   if (line.length === 0) {
     cases.push(current.join("\n  "));
     current = [];
@@ -23,7 +24,7 @@ describe("cases", () => {
       ""
     ].join("\n");
 
-    const actual = prettier.format(expected, { parser: "c", plugins: ["."] });
+    const actual = prettier.format(expected, { parser: "c", plugins: [plugin] });
 
     expect(actual).toEqual(expected);
   });

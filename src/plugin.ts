@@ -1,7 +1,8 @@
-const parser = require("./parser");
-const printer = require("./printer");
+import type { Plugin } from "prettier";
+import parser from "./parser";
+import printer from "./printer";
 
-const plugin = {
+const plugin: Plugin = {
   languages: [
     {
       name: "C",
@@ -16,11 +17,10 @@ const plugin = {
   printers: {
     c: printer
   },
-  options: {},
   defaultOptions: {
     printWidth: 80,
     tabWidth: 2
   }
 };
 
-module.exports = plugin;
+export default plugin;
