@@ -84,6 +84,20 @@ a.b;
 
 a->b;
 
+if (a) b;
+
+if (a) {
+  b;
+}
+
+if (a) b; else c;
+
+if (a) {
+  b;
+} else {
+  c;
+}
+
 (a + b);
 
 a++;

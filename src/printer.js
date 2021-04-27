@@ -69,7 +69,7 @@ function genericPrint(path, opts, print) {
       return group(concat(docs));
     }
     case "const":
-      node.value;
+      return node.value;
     case "continue":
       return "continue;";
     case "decl": {
@@ -102,6 +102,15 @@ function genericPrint(path, opts, print) {
     }
     case "ident":
       return node.value;
+    case "if": {
+      const docs = ["if (", path.call(print, "expr"), ") ", path.call(print, "stmt")];
+
+      if (node.consequent) {
+        docs.push(" else ", path.call(print, "consequent"));
+      }
+
+      return group(concat(docs));
+    }
     case "initDecl": {
       const docs = [path.call(print, "decl")];
   
