@@ -15,7 +15,7 @@ type AST = { loc: Loc } & (
   | { type: "declSpecs", specs: AST[] }
   | { type: "double" }
   | { type: "exprs", exprs: AST[] }
-  | { type: "field", oper: "." | "->", ident: string }
+  | { type: "field", recv: AST, oper: "." | "->", ident: string }
   | { type: "float" }
   | { type: "func", declSpecs: AST, name: string, params?: AST[], body: AST }
   | { type: "ident", value: string }

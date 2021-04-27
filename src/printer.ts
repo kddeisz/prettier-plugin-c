@@ -8,15 +8,18 @@ const printer: Printer<AST> = {
   print(path, opts, print) {
     const node = path.getValue();
 
+    const call = <T>(node: T, prop: keyof T) => path.call(print, prop);
+    const map = <T>(node: T, prop: keyof T) => path.map(print, prop);
+
     switch (node.type) {
       case "assign":
         return group(concat([
-          path.call(print, "lhs"),
+          call(node, "lhs"),
           " ",
           node.oper,
           group(indent(concat([
             line,
-            path.call(print, "rhs")
+            call(node, "rhs")
           ])))
         ]));
       case "bool":
@@ -34,22 +37,22 @@ const printer: Printer<AST> = {
         return node.type;
       case "binary":
         return group(concat([
-          path.call(print, "lhs"),
+          call(node, "lhs"),
           " ",
           node.oper,
           " ",
-          path.call(print, "rhs")
+          call(node, "rhs")
         ]));
       case "break":
         return "break;";
       case "call": {
-        const docs = [path.call(print, "recv"), "("];
+        const docs = [call(node, "recv"), "("];
   
         if (node.args) {
           docs.push(
             group(indent(concat([
               softline,
-              join(concat([",", line]), path.map(print, "args"))
+              join(concat([",", line]), map(node, "args"))
             ]))),
             softline
           );
@@ -59,13 +62,13 @@ const printer: Printer<AST> = {
         return group(concat(docs));
       }
       case "cast":
-        return concat(["(", path.call(print, "value"), ") ", path.call(print, "expr")]);
+        return concat(["(", call(node, "value"), ") ", call(node, "expr")]);
       case "compound": {
         const docs: Doc[] = ["{"];
     
         if (node.items) {
           docs.push(
-            indent(concat([hardline, join(hardline, path.map(print, "items"))])),
+            indent(concat([hardline, join(hardline, map(node, "items"))])),
             hardline
           );
         }
@@ -78,81 +81,81 @@ const printer: Printer<AST> = {
       case "continue":
         return "continue;";
       case "decl": {
-        const docs = [path.call(print, "declSpecs")];
+        const docs = [call(node, "declSpecs")];
     
         if (node.initDecls) {
-          docs.push(" ", join(", ", path.map(print, "initDecls")));
+          docs.push(" ", join(", ", map(node, "initDecls")));
         }
     
         docs.push(";");
         return group(concat(docs));
       }
       case "declSpecs":
-        return join(" ", path.map(print, "specs"));
+        return join(" ", map(node, "specs"));
       case "exprs":
-        return group(join(", ", path.map(print, "exprs")));
+        return group(join(", ", map(node, "exprs")));
       case "field":
-        return concat([path.call(print, "recv"), node.oper, node.ident]);  
+        return concat([call(node, "recv"), node.oper, node.ident]);  
       case "func": {
-        const docs = [path.call(print, "declSpecs"), " ", path.call(print, "name")];
+        const docs = [call(node, "declSpecs"), " ", call(node, "name")];
     
         if (node.params) {
-          docs.push("(", join(", ", path.map(print, "params")), ") ");
+          docs.push("(", join(", ", map(node, "params")), ") ");
         } else {
           docs.push("() ");
         }
     
-        docs.push(path.call(print, "body"));
+        docs.push(call(node, "body"));
         return group(concat(docs));
       }
       case "ident":
         return node.value;
       case "if": {
-        const docs = ["if (", path.call(print, "expr"), ") ", path.call(print, "stmt")];
+        const docs = ["if (", call(node, "expr"), ") ", call(node, "stmt")];
   
         if (node.consequent) {
-          docs.push(" else ", path.call(print, "consequent"));
+          docs.push(" else ", call(node, "consequent"));
         }
   
         return group(concat(docs));
       }
       case "initDecl": {
-        const docs = [path.call(print, "decl")];
+        const docs = [call(node, "decl")];
     
         if (node.init) {
-          docs.push(" = ", path.call(print, "init"));
+          docs.push(" = ", call(node, "init"));
         }
     
         return group(concat(docs));
       }
       case "parens":
-        return concat(["(", path.call(print, "expr"), ")"]);
+        return concat(["(", call(node, "expr"), ")"]);
       case "postUnary":
-        return concat([path.call(print, "expr"), node.oper]);
+        return concat([call(node, "expr"), node.oper]);
       case "return": {
         const docs: Doc[] = ["return"];
   
         if (node.expr) {
-          docs.push(" ", path.call(print, "expr"));
+          docs.push(" ", call(node, "expr"));
         }
   
         docs.push(";");
         return concat(docs);
       }
       case "root":
-        return concat([join(hardline, path.map(print, "decls")), hardline]);
+        return concat([join(hardline, map(node, "decls")), hardline]);
       case "specQuals":
-        return join(" ", path.map(print, "quals"));
+        return join(" ", map(node, "quals"));
       case "stmt":
-        return concat([path.call(print, "expr"), ";"]);
+        return concat([call(node, "expr"), ";"]);
       case "ternary":
         return group(concat([
-          path.call(print, "pred"),
+          call(node, "pred"),
           indent(concat([
             line,
-            concat(["? ", path.call(print, "truthy")]),
+            concat(["? ", call(node, "truthy")]),
             line,
-            concat([": ", path.call(print, "falsy")])
+            concat([": ", call(node, "falsy")])
           ]))
         ]));
       case "unary": {
@@ -164,7 +167,7 @@ const printer: Printer<AST> = {
           docs.push(" ");
         }
     
-        docs.push(path.call(print, "expr"));
+        docs.push(call(node, "expr"));
     
         if (node.parens) {
           docs.push(")");
@@ -173,10 +176,10 @@ const printer: Printer<AST> = {
         return concat(docs);
       }
       case "while": {
-        const docs = ["while(", path.call(print, "pred"), ")"];
+        const docs = ["while(", call(node, "pred"), ")"];
     
         if (node.stmt) {
-          docs.push(" ", path.call(print, "stmt"));
+          docs.push(" ", call(node, "stmt"));
         } else {
           docs.push(";");
         }
