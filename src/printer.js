@@ -59,18 +59,17 @@ function genericPrint(path, opts, print) {
       const docs = ["{"];
   
       if (node.items) {
-        docs.push(indent(concat([
-          hardline,
-          join(hardline, path.map(print, "items"))
-        ])));
+        docs.push(
+          indent(concat([hardline, join(hardline, path.map(print, "items"))])),
+          hardline
+        );
       }
   
-      docs.push(hardline, "}");
+      docs.push("}");
       return group(concat(docs));
     }
     case "const":
-    case "ident":
-      return node.value;
+      node.value;
     case "continue":
       return "continue;";
     case "decl": {
@@ -101,6 +100,8 @@ function genericPrint(path, opts, print) {
       docs.push(path.call(print, "body"));
       return group(concat(docs));
     }
+    case "ident":
+      return node.value;
     case "initDecl": {
       const docs = [path.call(print, "decl")];
   
