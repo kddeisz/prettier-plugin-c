@@ -124,6 +124,16 @@ function genericPrint(path, opts, print) {
       return concat(["(", path.call(print, "expr"), ")"]);
     case "postUnary":
       return concat([path.call(print, "expr"), node.oper]);
+    case "return": {
+      const docs = ["return"];
+
+      if (node.expr) {
+        docs.push(" ", path.call(print, "expr"));
+      }
+
+      docs.push(";");
+      return concat(docs);
+    }
     case "root":
       return concat([join(hardline, path.map(print, "declarations")), hardline]);
     case "specQuals":
