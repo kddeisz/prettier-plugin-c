@@ -159,10 +159,10 @@ case 113: case 114: case 115: case 116: case 117: case 118: case 119: case 120: 
  this.$ = node({ type: $$[$0] }, _$[$0]) 
 break;
 case 138: case 140:
- this.$ = node({ type: "specQuals", value: [$$[$0-1]].concat($$[$0].value) }, _$[$0-1], _$[$0]) 
+ this.$ = node({ type: "specQuals", quals: [$$[$0-1]].concat($$[$0].quals) }, _$[$0-1], _$[$0]) 
 break;
 case 139: case 141:
- this.$ = node({ type: "specQuals", value: [$$[$0]] }, _$[$0]) 
+ this.$ = node({ type: "specQuals", quals: [$$[$0]] }, _$[$0]) 
 break;
 case 165:
  this.$ = node({ type: "declarator", pointer: $$[$0-1], directDeclarator: $$[$0] }, _$[$0-1], _$[$0]) 
@@ -261,10 +261,10 @@ case 265:
  this.$ = node({ type: "return", expr: $$[$0-1] }, _$[$0-2], _$[$0]) 
 break;
 case 266:
- this.$ = node({ type: "root", declarations: [$$[$0]] }, _$[$0]) 
+ this.$ = node({ type: "root", decls: [$$[$0]] }, _$[$0]) 
 break;
 case 267:
- this.$ = node({ type: "root", declarations: $$[$0-1].declarations.concat($$[$0]) }, _$[$0-1], _$[$0]) 
+ this.$ = node({ type: "root", decls: $$[$0-1].decls.concat($$[$0]) }, _$[$0-1], _$[$0]) 
 break;
 case 270:
  this.$ = node({ type: "func", declSpecs: $$[$0-3], name: $$[$0-2], params: $$[$0-1], body: $$[$0] }, _$[$0-3], _$[$0]) 

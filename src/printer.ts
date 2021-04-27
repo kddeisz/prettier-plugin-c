@@ -1,9 +1,10 @@
 import type { Doc, Printer } from "prettier";
 import { builders } from "prettier/doc";
+import type AST from "./ast";
 
 const { concat, group, hardline, indent, join, line, softline } = builders;
 
-const printer: Printer = {
+const printer: Printer<AST> = {
   print(path, opts, print) {
     const node = path.getValue();
 
@@ -95,8 +96,8 @@ const printer: Printer = {
       case "func": {
         const docs = [path.call(print, "declSpecs"), " ", path.call(print, "name")];
     
-        if (node.initDecls) {
-          docs.push("(", join(", ", path.map(print, "initDecls")), ") ");
+        if (node.params) {
+          docs.push("(", join(", ", path.map(print, "params")), ") ");
         } else {
           docs.push("() ");
         }
@@ -139,9 +140,9 @@ const printer: Printer = {
         return concat(docs);
       }
       case "root":
-        return concat([join(hardline, path.map(print, "declarations")), hardline]);
+        return concat([join(hardline, path.map(print, "decls")), hardline]);
       case "specQuals":
-        return join(" ", path.map(print, "value"));
+        return join(" ", path.map(print, "quals"));
       case "stmt":
         return concat([path.call(print, "expr"), ";"]);
       case "ternary":
@@ -155,7 +156,7 @@ const printer: Printer = {
           ]))
         ]));
       case "unary": {
-        const docs = [node.oper];
+        const docs: Doc[] = [node.oper];
     
         if (node.parens) {
           docs.push("(");
@@ -183,7 +184,7 @@ const printer: Printer = {
         return group(concat(docs));
       }
       default:
-        throw new Error(`Unsupported node: ${node.type}`);
+        throw new Error(`Unsupported node: ${(node as unknown as any).type}`);
     }
   }
 };

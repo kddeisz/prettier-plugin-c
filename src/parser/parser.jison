@@ -324,13 +324,13 @@ struct_declaration
 
 specifier_qualifier_list
 	: type_specifier specifier_qualifier_list
-		{ $$ = node({ type: "specQuals", value: [$1].concat($2.value) }, @1, @2) }
+		{ $$ = node({ type: "specQuals", quals: [$1].concat($2.quals) }, @1, @2) }
 	| type_specifier
-		{ $$ = node({ type: "specQuals", value: [$1] }, @1) }
+		{ $$ = node({ type: "specQuals", quals: [$1] }, @1) }
 	| type_qualifier specifier_qualifier_list
-		{ $$ = node({ type: "specQuals", value: [$1].concat($2.value) }, @1, @2) }
+		{ $$ = node({ type: "specQuals", quals: [$1].concat($2.quals) }, @1, @2) }
 	| type_qualifier
-		{ $$ = node({ type: "specQuals", value: [$1] }, @1) }
+		{ $$ = node({ type: "specQuals", quals: [$1] }, @1) }
 	;
 
 struct_declarator_list
@@ -604,9 +604,9 @@ jump_statement
 
 translation_unit
 	: external_declaration
-		{ $$ = node({ type: "root", declarations: [$1] }, @1) }
+		{ $$ = node({ type: "root", decls: [$1] }, @1) }
 	| translation_unit external_declaration
-		{ $$ = node({ type: "root", declarations: $1.declarations.concat($2) }, @1, @2) }
+		{ $$ = node({ type: "root", decls: $1.decls.concat($2) }, @1, @2) }
 	;
 
 external_declaration

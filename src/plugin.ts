@@ -1,8 +1,9 @@
 import type { Plugin } from "prettier";
+import type AST from "./ast";
 import parser from "./parser";
 import printer from "./printer";
 
-const plugin: Plugin = {
+const plugin: Plugin<AST> = {
   languages: [
     {
       name: "C",

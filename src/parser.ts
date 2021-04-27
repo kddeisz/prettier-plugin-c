@@ -1,7 +1,9 @@
 import type { Parser } from "prettier";
+
+import type AST from "./ast";
 import { parse } from "./parser/parser";
 
-const parser: Parser = {
+const parser: Parser<AST> = {
   parse,
   astFormat: "c",
   locStart() {
