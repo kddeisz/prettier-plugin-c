@@ -6,11 +6,11 @@ import { parse } from "./parser/parser";
 const parser: Parser<AST> = {
   parse,
   astFormat: "c",
-  locStart() {
-    return 0;
+  locStart(node) {
+    return node.loc.sc;
   },
-  locEnd() {
-    return 0;
+  locEnd(node) {
+    return node.loc.ec;
   }
 };
 
