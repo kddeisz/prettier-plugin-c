@@ -121,6 +121,8 @@ const printer: Printer<AST> = {
         docs.push(call(node, "body"));
         return group(concat(docs));
       }
+      case "goto":
+        return concat(["goto ", node.ident, ";"]);
       case "ident":
         return node.value;
       case "if": {
@@ -199,8 +201,15 @@ const printer: Printer<AST> = {
     
         return group(concat(docs));
       }
+      default:
+        throwUnsupportedNode(node);
     }
   }
 };
+
+function throwUnsupportedNode(node: never): never;
+function throwUnsupportedNode(node: AST) {
+  throw new Error(`${node.type} not supported.`);
+}
 
 export default printer;

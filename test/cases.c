@@ -86,6 +86,8 @@ a.b;
 
 a->b;
 
+goto a;
+
 if (a) b;
 
 if (a) {

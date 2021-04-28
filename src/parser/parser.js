@@ -249,7 +249,7 @@ case 260:
  this.$ = node({ type: "for", init: $$[$0-4], pred: $$[$0-3], incr: $$[$0-2], stmt: $$[$0] }, _$[$0-6], _$[$0-1]) 
 break;
 case 261:
- this.$ = node({ type: "goto", ident: $$[$0-2] }, _$[$0-2], _$[$0-1]) 
+ this.$ = node({ type: "goto", ident: $$[$0-1] }, _$[$0-2], _$[$0]) 
 break;
 case 262:
  this.$ = node({ type: "continue" }, _$[$0-1], _$[$0]) 

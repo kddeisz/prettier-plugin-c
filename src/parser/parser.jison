@@ -592,7 +592,7 @@ iteration_statement
 
 jump_statement
 	: GOTO IDENTIFIER ';'
-		{ $$ = node({ type: "goto", ident: $1 }, @1, @2) }
+		{ $$ = node({ type: "goto", ident: $2 }, @1, @3) }
 	| CONTINUE ';'
 		{ $$ = node({ type: "continue" }, @1, @2) }
 	| BREAK ';'

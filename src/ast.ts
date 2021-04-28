@@ -22,6 +22,7 @@ type AST = { loc: Loc } & (
   | { type: "field", recv: AST, oper: "." | "->", ident: string }
   | { type: "float" }
   | { type: "func", declSpecs: AST, name: string, params?: AST[], body: AST }
+  | { type: "goto", ident: string }
   | { type: "ident", value: string }
   | { type: "if", expr: AST, stmt: AST, consequent?: AST }
   | { type: "imaginary" }
