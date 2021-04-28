@@ -274,27 +274,27 @@ init_declarator
 	;
 
 storage_class_specifier
-	: TYPEDEF
-	| EXTERN
-	| STATIC
-	| THREAD_LOCAL
-	| AUTO
-	| REGISTER
+	: TYPEDEF                       { $$ = node({ type: "keyword", keyword: $1 }, @1) }
+	| EXTERN                        { $$ = node({ type: "keyword", keyword: $1 }, @1) }
+	| STATIC                        { $$ = node({ type: "keyword", keyword: $1 }, @1) }
+	| THREAD_LOCAL                  { $$ = node({ type: "keyword", keyword: $1 }, @1) }
+	| AUTO                          { $$ = node({ type: "keyword", keyword: $1 }, @1) }
+	| REGISTER                      { $$ = node({ type: "keyword", keyword: $1 }, @1) }
 	;
 
 type_specifier
-	: VOID                          { $$ = node({ type: $1 }, @1) }
-	| CHAR                          { $$ = node({ type: $1 }, @1) }
-	| SHORT                         { $$ = node({ type: $1 }, @1) }
-	| INT                           { $$ = node({ type: $1 }, @1) }
-	| LONG                          { $$ = node({ type: $1 }, @1) }
-	| FLOAT                         { $$ = node({ type: $1 }, @1) }
-	| DOUBLE                        { $$ = node({ type: $1 }, @1) }
-	| SIGNED                        { $$ = node({ type: $1 }, @1) }
-	| UNSIGNED                      { $$ = node({ type: $1 }, @1) }
-	| BOOL                          { $$ = node({ type: $1 }, @1) }
-	| COMPLEX                       { $$ = node({ type: $1 }, @1) }
-	| IMAGINARY                     { $$ = node({ type: $1 }, @1) }
+	: VOID                          { $$ = node({ type: "keyword", keyword: $1 }, @1) }
+	| CHAR                          { $$ = node({ type: "keyword", keyword: $1 }, @1) }
+	| SHORT                         { $$ = node({ type: "keyword", keyword: $1 }, @1) }
+	| INT                           { $$ = node({ type: "keyword", keyword: $1 }, @1) }
+	| LONG                          { $$ = node({ type: "keyword", keyword: $1 }, @1) }
+	| FLOAT                         { $$ = node({ type: "keyword", keyword: $1 }, @1) }
+	| DOUBLE                        { $$ = node({ type: "keyword", keyword: $1 }, @1) }
+	| SIGNED                        { $$ = node({ type: "keyword", keyword: $1 }, @1) }
+	| UNSIGNED                      { $$ = node({ type: "keyword", keyword: $1 }, @1) }
+	| BOOL                          { $$ = node({ type: "keyword", keyword: $1 }, @1) }
+	| COMPLEX                       { $$ = node({ type: "keyword", keyword: $1 }, @1) }
+	| IMAGINARY                     { $$ = node({ type: "keyword", keyword: $1 }, @1) }
 	| atomic_type_specifier
 	| struct_or_union_specifier
 	| enum_specifier

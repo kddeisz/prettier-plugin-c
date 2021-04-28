@@ -35,19 +35,6 @@ const printer: Printer<AST> = {
             call(node, "rhs")
           ])))
         ]));
-      case "bool":
-      case "char":
-      case "complex":
-      case "double":
-      case "float":
-      case "imaginary":
-      case "int":
-      case "long":
-      case "short":
-      case "signed":
-      case "unsigned":
-      case "void":
-        return node.type;
       case "binary":
         return group(concat([
           call(node, "lhs"),
@@ -157,6 +144,8 @@ const printer: Printer<AST> = {
     
         return group(concat(docs));
       }
+      case "keyword":
+        return node.keyword;
       case "parens":
         return concat(["(", call(node, "expr"), ")"]);
       case "postUnary":

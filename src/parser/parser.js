@@ -155,8 +155,8 @@ break;
 case 106:
  this.$ = node({ type: "initDecl", decl: $$[$0] }, _$[$0]) 
 break;
-case 113: case 114: case 115: case 116: case 117: case 118: case 119: case 120: case 121: case 122: case 123: case 124:
- this.$ = node({ type: $$[$0] }, _$[$0]) 
+case 107: case 108: case 109: case 110: case 111: case 112: case 113: case 114: case 115: case 116: case 117: case 118: case 119: case 120: case 121: case 122: case 123: case 124:
+ this.$ = node({ type: "keyword", keyword: $$[$0] }, _$[$0]) 
 break;
 case 138: case 140:
  this.$ = node({ type: "specQuals", quals: [$$[$0-1]].concat($$[$0].quals) }, _$[$0-1], _$[$0]) 

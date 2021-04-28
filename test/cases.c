@@ -40,6 +40,16 @@ unsigned a;
 
 void a;
 
+extern a;
+
+static a;
+
+_Thread_local a;
+
+auto a;
+
+register a;
+
 ++a;
 
 --a;
