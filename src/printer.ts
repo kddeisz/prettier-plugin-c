@@ -8,8 +8,8 @@ const printer: Printer<AST> = {
   print(path, opts, print) {
     const node = path.getValue();
 
-    const call = <T>(node: T, prop: keyof T) => path.call(print, prop);
-    const map = <T>(node: T, prop: keyof T) => path.map(print, prop);
+    const call = <T extends { [key in P]?: AST }, P extends keyof T>(node: T, prop: P) => path.call(print, prop);
+    const map = <T extends { [key in P]?: AST[] }, P extends keyof T>(node: T, prop: P) => path.map(print, prop);
 
     switch (node.type) {
       case "assert":

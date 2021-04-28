@@ -23,7 +23,7 @@ type AST = { loc: Loc } & (
   | { type: "field", recv: AST, oper: "." | "->", ident: string }
   | { type: "float" }
   | { type: "for", init: AST, pred: AST, incr?: AST, stmt: AST }
-  | { type: "func", declSpecs: AST, name: string, params?: AST[], body: AST }
+  | { type: "func", declSpecs: AST, name: AST, params?: AST[], body: AST }
   | { type: "goto", ident: string }
   | { type: "ident", value: string }
   | { type: "if", expr: AST, stmt: AST, consequent?: AST }
