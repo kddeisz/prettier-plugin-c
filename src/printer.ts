@@ -108,7 +108,17 @@ const printer: Printer<AST> = {
       case "exprs":
         return group(join(", ", map(node, "exprs")));
       case "field":
-        return concat([call(node, "recv"), node.oper, node.ident]);  
+        return concat([call(node, "recv"), node.oper, node.ident]); 
+      case "for": {
+        const docs = ["for (", call(node, "init"), " ", call(node, "pred")];
+
+        if (node.incr) {
+          docs.push(" ", call(node, "incr"));
+        }
+
+        docs.push(") ", call(node, "stmt"));
+        return group(concat(docs));
+      }
       case "func": {
         const docs = [call(node, "declSpecs"), " ", call(node, "name")];
     
