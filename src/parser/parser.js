@@ -200,6 +200,9 @@ break;
 case 231: case 247: case 273:
  this.$ = $$[$0-1].concat($$[$0]) 
 break;
+case 234:
+ this.$ = node({ type: "assert", expr: $$[$0-4], msg: $$[$0-2] }, _$[$0-6], _$[$0]) 
+break;
 case 241:
  this.$ = node({ type: "label", ident: $$[$0-2], stmt: $$[$0] }, _$[$0-2], _$[$0]) 
 break;

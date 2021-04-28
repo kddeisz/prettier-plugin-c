@@ -519,6 +519,7 @@ designator
 
 static_assert_declaration
 	: STATIC_ASSERT '(' constant_expression ',' STRING_LITERAL ')' ';'
+		{ $$ = node({ type: "assert", expr: $3, msg: $5 }, @1, @7) }
 	;
 
 statement

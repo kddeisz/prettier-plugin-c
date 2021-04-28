@@ -1,3 +1,5 @@
+_Static_assert(a, "a");
+
 a = 1;
 
 char a;

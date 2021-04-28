@@ -12,6 +12,19 @@ const printer: Printer<AST> = {
     const map = <T>(node: T, prop: keyof T) => path.map(print, prop);
 
     switch (node.type) {
+      case "assert":
+        return group(concat([
+          "_Static_assert(",
+          indent(concat([
+            softline,
+            call(node, "expr"),
+            ",",
+            line,
+            node.msg
+          ])),
+          softline,
+          ");"
+        ]));
       case "assign":
         return group(concat([
           call(node, "lhs"),
@@ -186,8 +199,6 @@ const printer: Printer<AST> = {
     
         return group(concat(docs));
       }
-      default:
-        throw new Error(`Unsupported node: ${(node as unknown as any).type}`);
     }
   }
 };
