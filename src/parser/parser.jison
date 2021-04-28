@@ -579,7 +579,7 @@ iteration_statement
 	: WHILE '(' expression ')' statement
 		{ $$ = node({ type: "while", pred: $3, stmt: $5 }, @1, @5) }
 	| DO statement WHILE '(' expression ')' ';'
-		{ $$ = node({ type: "do", stmt: $1, expr: $5 }, @1, @6) }
+		{ $$ = node({ type: "do", stmt: $2, expr: $5 }, @1, @7) }
 	| FOR '(' expression_statement expression_statement ')' statement
 		{ $$ = node({ type: "for", init: $3, pred: $4, stmt: $6 }, @1, @6) }
 	| FOR '(' expression_statement expression_statement expression ')' statement

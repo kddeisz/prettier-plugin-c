@@ -237,7 +237,7 @@ case 255:
  this.$ = node({ type: "while", pred: $$[$0-2], stmt: $$[$0] }, _$[$0-4], _$[$0]) 
 break;
 case 256:
- this.$ = node({ type: "do", stmt: $$[$0-6], expr: $$[$0-2] }, _$[$0-6], _$[$0-1]) 
+ this.$ = node({ type: "do", stmt: $$[$0-5], expr: $$[$0-2] }, _$[$0-6], _$[$0]) 
 break;
 case 257: case 259:
  this.$ = node({ type: "for", init: $$[$0-3], pred: $$[$0-2], stmt: $$[$0] }, _$[$0-5], _$[$0]) 

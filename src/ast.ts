@@ -17,6 +17,7 @@ type AST = { loc: Loc } & (
   | { type: "continue" }
   | { type: "decl", declSpecs: AST, initDecls?: AST[] }
   | { type: "declSpecs", specs: AST[] }
+  | { type: "do", stmt: AST, expr: AST }
   | { type: "double" }
   | { type: "exprs", exprs: AST[] }
   | { type: "field", recv: AST, oper: "." | "->", ident: string }

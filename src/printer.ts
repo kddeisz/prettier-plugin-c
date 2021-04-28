@@ -105,6 +105,10 @@ const printer: Printer<AST> = {
       }
       case "declSpecs":
         return join(" ", map(node, "specs"));
+      case "do":
+       return group(concat([
+        "do ", call(node, "stmt"), " while (", call(node, "expr"), ");"
+       ]));
       case "exprs":
         return group(join(", ", map(node, "exprs")));
       case "field":
