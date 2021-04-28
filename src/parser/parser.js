@@ -164,6 +164,9 @@ break;
 case 139: case 141:
  this.$ = node({ type: "specQuals", quals: [$$[$0]] }, _$[$0]) 
 break;
+case 156:
+ this.$ = node({ type: "atomic", name: $$[$0-1] }, _$[$0-3], _$[$0]) 
+break;
 case 165:
  this.$ = node({ type: "declarator", pointer: $$[$0-1], directDeclarator: $$[$0] }, _$[$0-1], _$[$0]) 
 break;

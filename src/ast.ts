@@ -6,6 +6,7 @@ type Loc = { sl: number, sc: number, el: number, ec: number };
 type AST = { loc: Loc } & (
   | { type: "assert", expr: AST, msg: string }
   | { type: "assign", lhs: AST, oper: AssignOper, rhs: AST }
+  | { type: "atomic", name: AST }
   | { type: "binary", lhs: AST, oper: BinaryOper, rhs: AST }
   | { type: "break" }
   | { type: "call", recv: AST, args?: AST[] }

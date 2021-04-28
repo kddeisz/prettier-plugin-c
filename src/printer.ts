@@ -35,6 +35,13 @@ const printer: Printer<AST> = {
             call(node, "rhs")
           ])))
         ]));
+      case "atomic":
+        return group(concat([
+          "_Atomic(",
+          indent(concat([softline, call(node, "name")])),
+          softline,
+          ")"
+        ]));
       case "binary":
         return group(concat([
           call(node, "lhs"),

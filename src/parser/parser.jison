@@ -364,6 +364,7 @@ enumerator
 
 atomic_type_specifier
 	: ATOMIC '(' type_name ')'
+		{ $$ = node({ type: "atomic", name: $3 }, @1, @4) }
 	;
 
 type_qualifier

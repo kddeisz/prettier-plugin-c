@@ -22,6 +22,8 @@ a ^= 1;
 
 a |= 1;
 
+_Atomic(int);
+
 char a;
 
 double a;
