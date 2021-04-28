@@ -2,6 +2,26 @@ _Static_assert(a, "a");
 
 a = 1;
 
+a *= 1;
+
+a /= 1;
+
+a %= 1;
+
+a += 1;
+
+a -= 1;
+
+a <<= 1;
+
+a >>= 1;
+
+a &= 1;
+
+a ^= 1;
+
+a |= 1;
+
 char a;
 
 double a;
@@ -39,6 +59,10 @@ int a = 1 % 2;
 int a = 1 + 2;
 
 int a = 1 - 2;
+
+int a = 1 << 2;
+
+int a = 1 >> 2;
 
 int a = 1 < 2;
 
