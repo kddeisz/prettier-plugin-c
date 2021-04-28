@@ -176,7 +176,7 @@ const printer: Printer<AST> = {
     
         if (node.parens) {
           docs.push("(");
-        } else if (!["++", "--"].includes(node.oper)) {
+        } else if (!["++", "--", "*"].includes(node.oper)) {
           docs.push(" ");
         }
     
