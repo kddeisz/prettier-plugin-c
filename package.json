@@ -2,10 +2,10 @@
   "name": "prettier-plugin-c",
   "version": "0.1.0",
   "description": "prettier plugin for C",
-  "main": "src/plugin.js",
+  "main": "dist/plugin.js",
   "scripts": {
     "parser": "jison src/parser/parser.jison src/parser/parser.jisonlex -o src/parser/parser.js",
-    "prepublishOnly": "rm -f dist/* && yarn tsc --declaration",
+    "prepublishOnly": "rm -rf dist/* && yarn tsc --declaration",
     "print": "ts-node node_modules/.bin/prettier --plugin=.",
     "test": "jest"
   },

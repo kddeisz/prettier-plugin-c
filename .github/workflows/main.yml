@@ -1,7 +1,7 @@
 name: Main
 on:
-- push
-- pull_request_target
+  - push
+  - pull_request_target
 jobs:
   ci:
     name: CI
@@ -9,33 +9,33 @@ jobs:
     env:
       CI: true
     steps:
-    - uses: actions/checkout@master
-    - uses: actions/setup-node@v2-beta
-      with:
-        node-version: 14.x
-    - id: yarn-cache
-      run: echo "::set-output name=directory::$(yarn cache dir)"
-    - uses: actions/cache@v1
-      with:
-        path: ${{ steps.yarn-cache.outputs.directory }}
-        key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-yarn-
-    - name: Install dependencies
-      run: yarn install --frozen-lockfile
-    - name: Test
-      run: yarn test
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@v2-beta
+        with:
+          node-version: 14.x
+      - id: yarn-cache
+        run: echo "::set-output name=directory::$(yarn cache dir)"
+      - uses: actions/cache@v1
+        with:
+          path: ${{ steps.yarn-cache.outputs.directory }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+      - name: Test
+        run: yarn test
   automerge:
     name: AutoMerge
     needs: ci
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request_target' && github.actor == 'dependabot[bot]'
     steps:
-    - uses: actions/github-script@v3
-      with:
-        script: |
-          github.pulls.merge({
-            owner: context.payload.repository.owner.login,
-            repo: context.payload.repository.name,
-            pull_number: context.payload.pull_request.number
-          })
+      - uses: actions/github-script@v3
+        with:
+          script: |
+            github.pulls.merge({
+              owner: context.payload.repository.owner.login,
+              repo: context.payload.repository.name,
+              pull_number: context.payload.pull_request.number
+            })

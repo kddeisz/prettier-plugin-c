@@ -1,87 +1,79 @@
 import type { Doc, Printer } from "prettier";
 import { builders } from "prettier/doc";
-import type AST from "./ast";
+import type Ast from "./ast";
 
-const { concat, group, hardline, indent, join, line, softline } = builders;
+const { group, hardline, indent, join, line, softline } = builders;
 
-const printer: Printer<AST> = {
+const printer: Printer<Ast> = {
   print(path, opts, print) {
     const node = path.getValue();
 
-    const call = <T extends { [key in P]?: AST }, P extends keyof T>(node: T, prop: P) => path.call(print, prop);
-    const map = <T extends { [key in P]?: AST[] }, P extends keyof T>(node: T, prop: P) => path.map(print, prop);
+    const call = <T extends { [key in P]?: Ast }, P extends keyof T>(
+      node: T,
+      prop: P
+    ) => path.call(print, prop);
+    const map = <T extends { [key in P]?: Ast[] }, P extends keyof T>(
+      node: T,
+      prop: P
+    ) => path.map(print, prop);
 
     switch (node.type) {
       case "assert":
-        return group(concat([
+        return group([
           "_Static_assert(",
-          indent(concat([
-            softline,
-            call(node, "expr"),
-            ",",
-            line,
-            node.msg
-          ])),
+          indent([softline, call(node, "expr"), ",", line, node.msg]),
           softline,
           ");"
-        ]));
+        ]);
       case "assign":
-        return group(concat([
+        return group([
           call(node, "lhs"),
           " ",
           node.oper,
-          group(indent(concat([
-            line,
-            call(node, "rhs")
-          ])))
-        ]));
+          group(indent([line, call(node, "rhs")]))
+        ]);
       case "atomic":
-        return group(concat([
+        return group([
           "_Atomic(",
-          indent(concat([softline, call(node, "name")])),
+          indent([softline, call(node, "name")]),
           softline,
           ")"
-        ]));
+        ]);
       case "binary":
-        return group(concat([
+        return group([
           call(node, "lhs"),
           " ",
           node.oper,
           " ",
           call(node, "rhs")
-        ]));
+        ]);
       case "break":
         return "break;";
       case "call": {
         const docs = [call(node, "recv"), "("];
-  
+
         if (node.args) {
           docs.push(
-            group(indent(concat([
-              softline,
-              join(concat([",", line]), map(node, "args"))
-            ]))),
+            group(indent([softline, join([",", line], map(node, "args"))])),
             softline
           );
         }
-  
-        docs.push(")");
-        return group(concat(docs));
+
+        return group([...docs, ")"]);
       }
       case "cast":
-        return concat(["(", call(node, "value"), ") ", call(node, "expr")]);
+        return ["(", call(node, "value"), ") ", call(node, "expr")];
       case "compound": {
         const docs: Doc[] = ["{"];
-    
+
         if (node.items) {
           docs.push(
-            indent(concat([hardline, join(hardline, map(node, "items"))])),
+            indent([hardline, join(hardline, map(node, "items"))]),
             hardline
           );
         }
-    
-        docs.push("}");
-        return group(concat(docs));
+
+        return group([...docs, "}"]);
       }
       case "const":
         return node.value;
@@ -89,24 +81,27 @@ const printer: Printer<AST> = {
         return "continue;";
       case "decl": {
         const docs = [call(node, "declSpecs")];
-    
+
         if (node.initDecls) {
           docs.push(" ", join(", ", map(node, "initDecls")));
         }
-    
-        docs.push(";");
-        return group(concat(docs));
+
+        return group([...docs, ";"]);
       }
       case "declSpecs":
         return join(" ", map(node, "specs"));
       case "do":
-       return group(concat([
-        "do ", call(node, "stmt"), " while (", call(node, "expr"), ");"
-       ]));
+        return group([
+          "do ",
+          call(node, "stmt"),
+          " while (",
+          call(node, "expr"),
+          ");"
+        ]);
       case "exprs":
         return group(join(", ", map(node, "exprs")));
       case "field":
-        return concat([call(node, "recv"), node.oper, node.ident]); 
+        return [call(node, "recv"), node.oper, node.ident];
       case "for": {
         const docs = ["for (", call(node, "init"), " ", call(node, "pred")];
 
@@ -114,102 +109,99 @@ const printer: Printer<AST> = {
           docs.push(" ", call(node, "incr"));
         }
 
-        docs.push(") ", call(node, "stmt"));
-        return group(concat(docs));
+        return group([...docs, ") ", call(node, "stmt")]);
       }
       case "func": {
         const docs = [call(node, "declSpecs"), " ", call(node, "name")];
-    
+
         if (node.params) {
           docs.push("(", join(", ", map(node, "params")), ") ");
         } else {
           docs.push("() ");
         }
-    
-        docs.push(call(node, "body"));
-        return group(concat(docs));
+
+        return group([...docs, call(node, "body")]);
       }
       case "goto":
-        return concat(["goto ", node.ident, ";"]);
+        return ["goto ", node.ident, ";"];
       case "ident":
         return node.value;
       case "if": {
         const docs = ["if (", call(node, "expr"), ") ", call(node, "stmt")];
-  
+
         if (node.consequent) {
           docs.push(" else ", call(node, "consequent"));
         }
-  
-        return group(concat(docs));
+
+        return group(docs);
       }
       case "initDecl": {
         const docs = [call(node, "decl")];
-    
+
         if (node.init) {
           docs.push(" = ", call(node, "init"));
         }
-    
-        return group(concat(docs));
+
+        return group(docs);
       }
       case "keyword":
         return node.keyword;
       case "parens":
-        return concat(["(", call(node, "expr"), ")"]);
+        return ["(", call(node, "expr"), ")"];
       case "postUnary":
-        return concat([call(node, "expr"), node.oper]);
+        return [call(node, "expr"), node.oper];
       case "return": {
         const docs: Doc[] = ["return"];
-  
+
         if (node.expr) {
           docs.push(" ", call(node, "expr"));
         }
-  
-        docs.push(";");
-        return concat(docs);
+
+        return [...docs, ";"];
       }
       case "root":
-        return concat([join(hardline, map(node, "decls")), hardline]);
+        return [join(hardline, map(node, "decls")), hardline];
       case "specQuals":
         return join(" ", map(node, "quals"));
       case "stmt":
-        return concat([call(node, "expr"), ";"]);
+        return [call(node, "expr"), ";"];
       case "ternary":
-        return group(concat([
+        return group([
           call(node, "pred"),
-          indent(concat([
+          indent([
             line,
-            concat(["? ", call(node, "truthy")]),
+            ["? ", call(node, "truthy")],
             line,
-            concat([": ", call(node, "falsy")])
-          ]))
-        ]));
+            [": ", call(node, "falsy")]
+          ])
+        ]);
       case "unary": {
         const docs: Doc[] = [node.oper];
-    
+
         if (node.parens) {
           docs.push("(");
         } else if (!["++", "--", "*"].includes(node.oper)) {
           docs.push(" ");
         }
-    
+
         docs.push(call(node, "expr"));
-    
+
         if (node.parens) {
           docs.push(")");
         }
-    
-        return concat(docs);
+
+        return docs;
       }
       case "while": {
         const docs = ["while(", call(node, "pred"), ")"];
-    
+
         if (node.stmt) {
           docs.push(" ", call(node, "stmt"));
         } else {
           docs.push(";");
         }
-    
-        return group(concat(docs));
+
+        return group(docs);
       }
       default:
         throwUnsupportedNode(node);
@@ -218,7 +210,7 @@ const printer: Printer<AST> = {
 };
 
 function throwUnsupportedNode(node: never): never;
-function throwUnsupportedNode(node: AST) {
+function throwUnsupportedNode(node: Ast) {
   throw new Error(`${node.type} not supported.`);
 }
 
