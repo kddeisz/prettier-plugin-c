@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kddeisz/prettier-plugin-c.git"
+    "url": "git+https://github.com/kddnewton/prettier-plugin-c.git"
   },
   "author": "Kevin Newton",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/kddeisz/prettier-plugin-c/issues"
+    "url": "https://github.com/kddnewton/prettier-plugin-c/issues"
   },
-  "homepage": "https://github.com/kddeisz/prettier-plugin-c#readme",
+  "homepage": "https://github.com/kddnewton/prettier-plugin-c#readme",
   "dependencies": {
     "prettier": ">=2.3"
   },
