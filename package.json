@@ -23,7 +23,7 @@
     "prettier": ">=2.3"
   },
   "devDependencies": {
-    "@types/jest": "^27.0.0",
+    "@types/jest": "^27.0.1",
     "@types/node": "^16.6.0",
     "@types/prettier": "^2.3.2",
     "jest": "^26.0.0",
