@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/kddnewton/prettier-plugin-c#readme",
   "dependencies": {
-    "prettier": ">=2.4"
+    "prettier": ">=2.5"
   },
   "devDependencies": {
     "@types/jest": "^27.0.3",
